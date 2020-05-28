@@ -78,4 +78,46 @@ public class Sorting<T extends Comparable<T>> {
         insertionSort(first+1);
     }
 
+    public void mergeSort() {
+        mergeSort(0,length);
+    }
+
+    public void mergeSort(int start,int end) {
+        int length = end-start;
+        if(length>1) {
+            mergeSort(start, start + length / 2);
+            mergeSort(start + length / 2, end);
+            merge(start,start+length/2,start+length/2,end);
+        }
+
+    }
+
+    public void merge(int start,int end, int start2, int end2) {
+        @SuppressWarnings("unchecked")
+        T[] tmp = (T[]) new Comparable[end-start+end2-start2];
+        int i = start;
+        int j = start2;
+        int count = 0;
+        while(i<end && j<end2) {
+            if(array[i].compareTo(array[j])<0) {
+                tmp[count++] = array[i++];
+            } else {
+                tmp[count++] = array[j++];
+            }
+        }
+        if(i==end) {
+            for(int k=j; k<end2; k++) {
+                tmp[count++] = array[k];
+            }
+        } else if(j==end2){
+            for(int k=i; k<end; k++) {
+                tmp[count++] = array[k];
+            }
+        }
+        count=0;
+        for(int l=start; l<end2; l++) {
+            array[l] = tmp[count++];
+        }
+    }
+
 }
