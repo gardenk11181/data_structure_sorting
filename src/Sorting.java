@@ -38,4 +38,20 @@ public class Sorting<T extends Comparable<T>> {
         selectionSort(last-1);
     }
 
+    public void bubbleSort() {
+        bubbleSort(length);
+    }
+
+    public void bubbleSort(int last) {
+        if(last==1) return;
+        for(int i=0; i<last-1; i++) {
+            if(array[i].compareTo(array[i+1])>0) {
+                T tmp = array[i];
+                array[i] = array[i+1];
+                array[i+1] = tmp;
+            }
+        }
+        bubbleSort(last-1);
+    }
+
 }
