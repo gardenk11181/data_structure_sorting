@@ -54,4 +54,28 @@ public class Sorting<T extends Comparable<T>> {
         bubbleSort(last-1);
     }
 
+    public void insertionSort() {
+        if(length<2) System.err.println("length is under 2");
+        else insertionSort(1);
+    }
+    public void insertionSort(int first) {
+        if(first==length) return;
+        T item = array[first];
+        for(int i=first-1; i>=0; i--) {
+            if(item.compareTo(array[i])>0) {
+                for(int j=first-1; j>i; j--) {
+                    array[j+1] = array[j];
+                }
+                array[i+1] = item;
+                break;
+            } else if(i==0) {
+                for(int j=first-1;j>=0; j--) {
+                    array[j+1] = array[j];
+                }
+                array[0] = item;
+            }
+        }
+        insertionSort(first+1);
+    }
+
 }

@@ -11,7 +11,8 @@ public class TestSorting {
         //test
         long startTime = System.nanoTime();
 //        sorting.selectionSort();
-        sorting.bubbleSort();
+//        sorting.bubbleSort();
+        sorting.insertionSort();
         long finishTime = System.nanoTime();
 
         System.out.println((finishTime-startTime)/1000000000.0 +" times used");
