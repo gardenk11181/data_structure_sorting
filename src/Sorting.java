@@ -120,4 +120,29 @@ public class Sorting<T extends Comparable<T>> {
         }
     }
 
+    public void quickSort() {
+        quickSort(0,length);
+    }
+
+    public void quickSort(int start, int end) {
+        int length = end-start;
+        if(length>1) {
+            T pivot = array[start];
+            int boundary = start+1;
+            for(int i=start+1; i<end; i++) {
+                if(pivot.compareTo(array[i])>=0) {
+                    T tmp = array[boundary];
+                    array[boundary] = array[i];
+                    array[i] = tmp;
+                    boundary++;
+                }
+            }
+            T tmp = array[boundary-1];
+            array[boundary-1] = array[start];
+            array[start] = tmp;
+            quickSort(start,boundary-1);
+            quickSort(boundary,end);
+        }
+    }
+
 }
