@@ -19,6 +19,39 @@ public class Sorting<T extends Comparable<T>> {
         }
     }
 
+    public void heapSort() {
+        heapSort(length);
+    }
+
+    public void heapSort(int last) {
+        for(int i=(last/2); i>=1; i--) {
+            percolateDown(i,last);
+        }
+
+        for(int size = last; size>=2 ; size--) {
+            T tmp = array[0];
+            array[0] = array[size-1];
+            array[size-1] = tmp;
+            percolateDown(1,size-1);
+        }
+    }
+
+    public void percolateDown(int parent,int size) {
+        int child = 2*parent;
+        int rightChild = 2*parent+1;
+        if(child<=size) {
+            if(rightChild<=size && array[child-1].compareTo(array[rightChild-1])<0) {
+                child = rightChild;
+            }
+            if(array[parent-1].compareTo(array[child-1])<0) {
+                T tmp = array[parent-1];
+                array[parent-1] = array[child-1];
+                array[child-1] = tmp;
+                percolateDown(child,size);
+            }
+        }
+    }
+
     public void selectionSort() {
         selectionSort(length);
     }
@@ -63,6 +96,7 @@ public class Sorting<T extends Comparable<T>> {
         T item = array[first];
         for(int i=first-1; i>=0; i--) {
             if(item.compareTo(array[i])>0) {
+                System.out.println("compared");
                 for(int j=first-1; j>i; j--) {
                     array[j+1] = array[j];
                 }
@@ -81,6 +115,7 @@ public class Sorting<T extends Comparable<T>> {
     public void mergeSort() {
         mergeSort(0,length);
     }
+    int totalComp = 0;
 
     public void mergeSort(int start,int end) {
         int length = end-start;
@@ -93,6 +128,16 @@ public class Sorting<T extends Comparable<T>> {
     }
 
     public void merge(int start,int end, int start2, int end2) {
+        if(end2-start==2) {
+            if(array[start].compareTo(array[start2])>0) {
+                T tmp = array[start];
+                array[start] = array[start2];
+                array[start2] = tmp;
+            }
+            totalComp++;
+            return;
+        }
+
         @SuppressWarnings("unchecked")
         T[] tmp = (T[]) new Comparable[end-start+end2-start2];
         int i = start;
@@ -104,6 +149,7 @@ public class Sorting<T extends Comparable<T>> {
             } else {
                 tmp[count++] = array[j++];
             }
+            totalComp++;
         }
         if(i==end) {
             for(int k=j; k<end2; k++) {
